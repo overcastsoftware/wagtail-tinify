@@ -28,8 +28,6 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
     install_requires=[
-        "wagtail>=1.6.0",
-        "Django>=1.7.1",
         "tinify",
         "cloudflare"
     ],
