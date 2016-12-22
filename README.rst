@@ -11,7 +11,7 @@ Quick start
 
     INSTALLED_APPS = [
         ...
-        'wagtain-tinify',
+        'wagtail_tinify',
     ]
 
 2. Add TINYPNG_API_KEY=XXXXXX to your .env (if you dont have an API key, go to https://tinypng.com/developers to request one.)
