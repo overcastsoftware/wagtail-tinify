@@ -26,13 +26,14 @@ class TinyPngOptimizeThread(threading.Thread):
         if tinify.key != None:
             # If aws keys are available, use them to fetch the image and write back
             if aws_key_id and aws_secret and aws_bucket and aws_region:
-                source_url = self.instance.url
-                source = tinify.from_url(source_url)
+                source_url_http = urlparse(StaticNode.handle_simple(self.instance.file.name), scheme='http').geturl()
+                source_url_https = urlparse(StaticNode.handle_simple(self.instance.file.name), scheme='https').geturl()
+                source = tinify.from_url(source_url_https)
                 path = "%s/%s" % (aws_bucket, self.instance.file.name)
                 source.store(service='s3',aws_access_key_id=aws_key_id,aws_secret_access_key=aws_secret,region=aws_region,path=path)
                 if cf_key:
                     cf = CloudFlare.CloudFlare()
-                    cf.zones.purge_cache.delete('cf_key', data={'files':[source_url]})
+                    cf.zones.purge_cache.delete('cf_key', data={'files':[source_url_http, source_url_https]})
             # Else we grab the local image, optimize it and override the local file
             else:
                 path = os.getcwd()+self.instance.url
