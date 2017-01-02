@@ -33,7 +33,7 @@ class TinyPngOptimizeThread(threading.Thread):
                 source.store(service='s3',aws_access_key_id=aws_key_id,aws_secret_access_key=aws_secret,region=aws_region,path=path)
                 if cf_key:
                     cf = CloudFlare.CloudFlare()
-                    cf.zones.purge_cache.delete('cf_key', data={'files':[source_url_http, source_url_https]})
+                    cf.zones.purge_cache.delete(cf_key, data={'files':[source_url_http, source_url_https]})
             # Else we grab the local image, optimize it and override the local file
             else:
                 path = os.getcwd()+self.instance.url
