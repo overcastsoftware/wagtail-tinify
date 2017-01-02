@@ -16,7 +16,7 @@ cf_zone_id = os.getenv('CF_ZONE_ID')
 tinify.key = os.getenv('TINYPNG_API_KEY')
 
 # If cloudflare key is not set, then we don't need to import Cloudflare
-if cf_key:
+if cf_api_key and cf_api_email and cf_api_key:
     import CloudFlare
 
 class TinyPngOptimizeThread(threading.Thread):
